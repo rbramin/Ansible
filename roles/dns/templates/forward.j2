@@ -1,0 +1,25 @@
+$TTL 1D
+@   IN  SOA ns1.{{ domain_name }}. admin.{{ domain_name }}. (
+        2025010101 ; Serial
+        1H         ; Refresh
+        15M        ; Retry
+        1W         ; Expire
+        1D )       ; Negative Cache TTL
+
+; Name servers
+@       IN  NS      ns1.{{ domain_name }}.
+
+; Host records
+ns1     IN  A       {{ dns_ip }}
+
+; Add your servers here
+prdx-nsprimary101   IN A  192.168.29.151
+prdx-ftp101         IN A  192.168.29.152
+prdx-nfs101         IN A  192.168.29.153
+prdx-db101          IN A  192.168.29.154
+prdx-webserver101   IN A  192.168.29.155
+prdx-haproxy101     IN A  192.168.29.156
+prdx-nagios101      IN A  192.168.29.157
+prdx-dprimary101    IN A  192.168.29.158
+prdx-dworker101     IN A  192.168.29.159
+prdx-dworker102     IN A  192.168.29.161

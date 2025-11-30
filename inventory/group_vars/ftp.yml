@@ -1,0 +1,9 @@
+---
+# FTP user configuration
+ftp_user: ftpuser
+ftp_shell: /sbin/nologin
+ftp_password: "{{ 'ChangeMe123!' | password_hash('sha512') }}"
+
+#ftp_password: "ChangeMe123!"
+
+# You can optionally add more FTP settings here if needed later

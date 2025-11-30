@@ -1,0 +1,20 @@
+$TTL 1D
+@   IN SOA ns1.{{ domain_name }}. admin.{{ domain_name }}. (
+        2025010101
+        1H
+        15M
+        1W
+        1D )
+
+@       IN  NS      ns1.{{ domain_name }}.
+
+151     IN  PTR     prdx-nsprimary101.{{ domain_name }}.
+152     IN  PTR     prdx-ftp101.{{ domain_name }}.
+153     IN  PTR     prdx-nfs101.{{ domain_name }}.
+154     IN  PTR     prdx-db101.{{ domain_name }}.
+155     IN  PTR     prdx-webserver101.{{ domain_name }}.
+156     IN  PTR     prdx-haproxy101.{{ domain_name }}.
+157     IN  PTR     prdx-nagios101.{{ domain_name }}.
+158     IN  PTR     prdx-dprimary101.{{ domain_name }}.
+159     IN  PTR     prdx-dworker101.{{ domain_name }}.
+161     IN  PTR     prdx-dworker102.{{ domain_name }}.

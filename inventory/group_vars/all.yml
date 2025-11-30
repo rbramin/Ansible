@@ -1,0 +1,12 @@
+---
+domain_name: "ziyotek.local"
+
+ntp_server_ip: "192.168.29.150"
+ntp_allow_network: "192.168.29.0/24"
+
+timezone: "UTC"
+
+firewall_allow_services:
+  - ssh
+  - http
+  - https

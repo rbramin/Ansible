@@ -1,0 +1,3 @@
+chrony_allow: "192.168.29.0/24"
+ntp_server_ip: "192.168.29.150"
+ntp_allow_network: "192.168.29.0/24"
