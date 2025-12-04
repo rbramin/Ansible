@@ -9,9 +9,3 @@ docker_packages:
 
 docker_swarm_init: true
 docker_swarm_manager_ip: "192.168.29.158"
-
-name: Add Docker CE repository
-  get_url:
-    url: https://download.docker.com/linux/rhel/docker-ce.repo
-    dest: /etc/yum.repos.d/docker-ce.repo
-    mode: 0644

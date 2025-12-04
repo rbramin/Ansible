@@ -1,3 +1,14 @@
 web_port: 80
 
 web_index_title: "Welcome to PRDX Web Server"
+
+apache_vhosts:
+  - servername: vhost1.ziyotek.local
+    documentroot: /var/www/vhost1
+    index: "Welcome to VHOST 1 from {{ inventory_hostname }}"
+  - servername: vhost2.ziyotek.local
+    documentroot: /var/www/vhost2
+    index: "Welcome to VHOST 2 from {{ inventory_hostname }}"
+  - servername: vhost3.ziyotek.local
+    documentroot: /var/www/vhost3
+    index: "Welcome to VHOST 3 from {{ inventory_hostname }}"

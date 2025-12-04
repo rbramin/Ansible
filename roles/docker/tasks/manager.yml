@@ -1,4 +1,9 @@
 ---
+- name: Add Docker CE repository
+  get_url:
+    url: https://download.docker.com/linux/rhel/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
 - name: Install Docker packages
   package:
     name: "{{ docker_packages }}"

@@ -14,11 +14,32 @@
     src: index.html.j2
     dest: /var/www/html/index.html
 
-- name: Enable Apache
+- name: Create document roots for virtual hosts
+  file:
+    path: "{{ item.documentroot }}"
+    state: directory
+    owner: apache
+    group: apache
+    mode: '0755'
+  loop: "{{ apache_vhosts }}"
+
+- name: Create index.html files for each virtual host
+  copy:
+    dest: "{{ item.documentroot }}/index.html"
+    content: "{{ item.index }}\n"
+  loop: "{{ apache_vhosts }}"
+
+- name: Create Apache virtual host config files
+  template:
+    src: vhost.conf.j2
+    dest: "/etc/httpd/conf.d/{{ item.servername }}.conf"
+  loop: "{{ apache_vhosts }}"
+
+- name: Enable and start httpd
   service:
     name: httpd
-    state: started
     enabled: yes
+    state: started
 
 - name: Allow HTTP firewall
   firewalld:

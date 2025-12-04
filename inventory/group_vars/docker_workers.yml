@@ -6,10 +6,4 @@ docker_packages:
   - docker-buildx-plugin
   - docker-compose-plugin
 
-docker_swarm_init: false
-
-name: Add Docker CE repository
-  get_url:
-    url: https://download.docker.com/linux/rhel/docker-ce.repo
-    dest: /etc/yum.repos.d/docker-ce.repo
-    mode: 0644
+docker_swarm_manager_ip: "192.168.29.158"
