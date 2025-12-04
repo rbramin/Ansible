@@ -7,4 +7,4 @@ nfs_exports:
     options: "192.168.29.0/24(rw,sync,no_root_squash,no_subtree_check)"
 
 # 🔥 THIS IS THE VARIABLE YOU WERE MISSING
-nfs_client_mount_point: "/mnt/nfs"
+nfs_client_mount_point: "/clientshare"

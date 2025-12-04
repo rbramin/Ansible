@@ -1,0 +1,16 @@
+---
+- name: Patch all servers (kernel + OS)
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Update all packages to latest
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Reboot if required
+      reboot:
+        msg: "Rebooting after patching"
+        connect_timeout: 5
+        reboot_timeout: 600

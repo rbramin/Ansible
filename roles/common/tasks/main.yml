@@ -19,3 +19,22 @@
 - name: Reload firewall
   command: firewall-cmd --reload
   when: ansible_facts['os_family'] == "RedHat"
+
+- name: Configure resolv.conf
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      search ziyotek.local
+      nameserver 192.168.29.151
+
+- name: Disable root SSH login
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin'
+    line: 'PermitRootLogin no'
+  notify: restart ssh
+
+- name: Install common DNS tools
+  package:
+    name:
+      - bind-utils

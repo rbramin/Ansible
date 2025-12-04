@@ -11,4 +11,11 @@ firewall_allow_services:
   - http
   - https
 
-nfs_client_mount_point: "/mnt/nfs"
+nfs_client_mount_point: "/clientshare"
+
+common_packages:
+  - bind-utils
+  - man
+  - man-pages
+  - mlocate
+  - sysstat

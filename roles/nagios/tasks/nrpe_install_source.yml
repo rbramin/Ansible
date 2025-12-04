@@ -1,0 +1,57 @@
+---
+- name: Install NRPE build dependencies
+  ansible.builtin.yum:
+    name:
+      - gcc
+      - glibc
+      - glibc-common
+      - openssl
+      - openssl-devel
+      - make
+      - wget
+      - perl
+      - tar
+    state: present
+
+- name: Download NRPE Source
+  ansible.builtin.get_url:
+    url: https://github.com/NagiosEnterprises/nrpe/releases/download/v4.0.3/nrpe-4.0.3.tar.gz
+    dest: /tmp/nrpe.tar.gz
+
+- name: Extract NRPE Source
+  ansible.builtin.unarchive:
+    src: /tmp/nrpe.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: Compile NRPE
+  ansible.builtin.command: "./configure --enable-command-args"
+  args:
+    chdir: /tmp/nrpe-4.0.3
+
+- name: Make NRPE
+  ansible.builtin.command: make install
+  args:
+    chdir: /tmp/nrpe-4.0.3
+
+- name: Install NRPE Daemon
+  ansible.builtin.command: make install-daemon
+  args:
+    chdir: /tmp/nrpe-4.0.3
+
+- name: Install NRPE Config
+  ansible.builtin.command: make install-config
+  args:
+    chdir: /tmp/nrpe-4.0.3
+
+- name: Install NRPE Service
+  ansible.builtin.command: make install-init
+  args:
+    chdir: /tmp/nrpe-4.0.3
+
+- name: Start and Enable NRPE
+  ansible.builtin.service:
+    name: nrpe
+    state: started
+    enabled: yes
+

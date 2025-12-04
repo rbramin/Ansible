@@ -1,14 +1,18 @@
-# server {{ ntp_server_ip }} iburst
-
+{% if inventory_hostname == 'prdx-ntp101' %}
+# This is the NTP server – use public pools
 server 0.north-america.pool.ntp.org iburst
 server 1.north-america.pool.ntp.org iburst
 server 2.north-america.pool.ntp.org iburst
 server 3.north-america.pool.ntp.org iburst
 
+# Allow your LAN
+allow {{ ntp_allow_network }}
+{% else %}
+# This is an NTP client – sync from your internal NTP server
+server {{ ntp_server_ip }} iburst
+{% endif %}
+
 driftfile /var/lib/chrony/drift
 makestep 1.0 3
 rtcsync
-
-allow {{ ntp_allow_network }}
-
 logdir /var/log/chrony

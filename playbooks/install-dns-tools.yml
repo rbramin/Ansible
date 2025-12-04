@@ -1,0 +1,11 @@
+---
+- name: Install DNS tools (nslookup) on all servers
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install bind-utils package
+      package:
+        name: bind-utils
+        state: present
+

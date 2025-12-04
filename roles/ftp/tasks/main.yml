@@ -37,3 +37,10 @@
   service:
     name: vsftpd
     state: restarted
+    
+- name: Install FTP client and server
+  package:
+    name:
+      - vsftpd
+      - ftp
+    state: present

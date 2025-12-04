@@ -1,0 +1,6 @@
+---
+- name: Install NRPE on all clients
+  hosts: all:!prdx-nagios101
+  become: yes
+  roles:
+    - nagios

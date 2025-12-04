@@ -7,11 +7,17 @@
       - gcc
       - glibc
       - glibc-common
-      - perl
+      - glibc-headers
+      - kernel-headers
       - wget
       - unzip
       - make
+      - tar
+      - openssl-devel
+      - gd
+      - gd-devel
     state: present
+
 
 - name: Create nagios user
   user:
@@ -83,3 +89,9 @@
   loop:
     - httpd
     - nagios
+
+- name: Enable and Start Apache for Nagios GUI
+  service:
+    name: httpd
+    state: started
+    enabled: yes

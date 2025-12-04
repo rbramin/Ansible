@@ -1,0 +1,5 @@
+---
+# This includes all subtask files for Nagios installation and configuration
+- include_tasks: install.yml
+- include_tasks: config.yml
+- include_tasks: nrpe.yml

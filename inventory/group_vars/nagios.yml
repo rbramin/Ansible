@@ -1,2 +1,25 @@
-nagios_web_user: "nagiosadmin"
-nagios_web_pass: "admin123"
+nagios_admin_user: nagiosadmin
+nagios_admin_password: admin123
+
+nagios_monitored_hosts:
+  prdx-webserver101:
+    alias: "Web Server 1"
+    address: 192.168.29.155
+  prdx-webserver102:
+    alias: "Web Server 2"
+    address: 192.168.29.156
+  prdx-webserver103:
+    alias: "Web Server 3"
+    address: 192.168.29.157
+  prdx-nfs101:
+    alias: "NFS Server"
+    address: 192.168.29.153
+  prdx-ftp101:
+    alias: "FTP Server"
+    address: 192.168.29.152
+  prdx-db101:
+    alias: "Database Server"
+    address: 192.168.29.154
+  prdx-nagios101:
+    alias: "Nagios Server"
+    address: 192.168.29.157
