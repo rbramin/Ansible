@@ -1,0 +1,4 @@
+---
+db_root_password: "Admin123!"
+db_user_password: "SamplePass123!"
+db_allowed_network: "192.168.29.0/24"

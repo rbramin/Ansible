@@ -1,2 +1,10 @@
+---
 nfs_export_path: "/var/nfs/shared"
 nfs_network: "192.168.29.0/24"
+
+nfs_exports:
+  - path: "/var/nfs/shared"
+    options: "192.168.29.0/24(rw,sync,no_root_squash,no_subtree_check)"
+
+# 🔥 THIS IS THE VARIABLE YOU WERE MISSING
+nfs_client_mount_point: "/mnt/nfs"

@@ -10,3 +10,5 @@ firewall_allow_services:
   - ssh
   - http
   - https
+
+nfs_client_mount_point: "/mnt/nfs"

@@ -143,3 +143,14 @@
     - import_role:
         name: nagios
         tasks_from: nrpe.yml
+
+# ------------------------------------------------------------
+# 10. MariaDB Database Server
+# ------------------------------------------------------------
+- name: Configure Database Server
+  hosts: prdx-db101
+  become: yes
+  roles:
+    - database
+  vars:
+    nfs_client_mount_point: "/mnt/nfs"
