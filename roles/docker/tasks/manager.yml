@@ -15,9 +15,14 @@
     enabled: yes
     state: started
 
+- name: Check if node already in a swarm
+  command: docker info -f '{{ "{{.Swarm.LocalNodeState}}" }}'
+  register: swarm_state
+  changed_when: false
+
 - name: Initialize Docker Swarm
-  command: docker swarm init --advertise-addr {{ docker_swarm_manager_ip }}
-  when: docker_swarm_init | default(false)
+  command: docker swarm init --advertise-addr {{ ansible_host }}
+  when: swarm_state.stdout != "active"
 
 - name: Get worker join token
   command: docker swarm join-token -q worker
@@ -27,3 +32,25 @@
 - set_fact:
     swarm_worker_token: "{{ worker_token.stdout }}"
   when: docker_swarm_init | default(false)
+
+- name: Create directory for Docker build context
+  file:
+    path: /opt/app
+    state: directory
+    owner: ansible
+    mode: '0755'
+
+- name: Copy Dockerfile
+  copy:
+    src: Dockerfile
+    dest: /opt/app/Dockerfile
+
+- name: Build docker image
+  command: docker build -t labapp:1.0 /opt/app
+  args:
+    chdir: /opt/app
+  run_once: true
+
+- name: Deploy stack on Docker Swarm
+  command: docker service create --name labapp --replicas 3 -p 8080:80 labapp:1.0
+  run_once: true
