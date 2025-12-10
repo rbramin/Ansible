@@ -1,6 +1,31 @@
----
-- name: Configure NFS server
-  hosts: prdx-nfs101
+- name: Configure NFS Server
+  hosts: nfs
   become: yes
-  roles:
-    - nfs 
+
+  tasks:
+    - name: Install NFS packages
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: Create shared directories
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0777'
+      loop:
+        - /var/nfs/shared
+        - /var/nfs/autofs
+
+    - name: Configure exports
+      copy:
+        dest: /etc/exports
+        content: |
+          /var/nfs/shared *(rw,sync,no_root_squash)
+          /var/nfs/autofs *(rw,sync,no_root_squash)
+
+    - name: Enable and restart NFS services
+      systemd:
+        name: nfs-server
+        enabled: yes
+        state: restarted

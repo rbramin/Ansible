@@ -13,35 +13,28 @@
     - prdx-dworker101
     - prdx-dworker102
   become: yes
-
   tasks:
 
-    - name: Enable EPEL on Rocky 9
-      yum:
-        name: epel-release
-        state: present
-
-    - name: Install NRPE & Plugins (Rocky 9)
+    - name: Install NRPE and basic plugins
       yum:
         name:
           - nrpe
           - nagios-plugins
-          - nagios-plugins-load
           - nagios-plugins-disk
+          - nagios-plugins-load
           - nagios-plugins-ping
           - nagios-plugins-http
-          - nagios-plugins-ssh
         state: present
-        disable_gpg_check: yes
 
-    - name: Allow Nagios server
+    - name: Allow Nagios Server IP
       lineinfile:
         path: /etc/nagios/nrpe.cfg
         regexp: '^allowed_hosts='
         line: 'allowed_hosts=127.0.0.1,192.168.29.157'
 
-    - name: Start and enable NRPE
+    - name: Enable NRPE
       systemd:
         name: nrpe
         state: restarted
         enabled: yes
+

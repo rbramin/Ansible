@@ -1,0 +1,28 @@
+- name: Configure NFS Clients
+  hosts:
+    - prdx-db101
+    - prdx-dworker101
+    - prdx-webserver101
+    - prdx-haproxy101
+    - prdx-dprimary101
+    - prdx-dworker102
+  become: yes
+
+  tasks:
+    - name: Install nfs-utils
+      yum:
+        name: nfs-utils
+        state: present
+
+    - name: Create mount point
+      file:
+        path: /clientshare
+        state: directory
+
+    - name: Add NFS mount to fstab and mount
+      mount:
+        src: "{{ groups['nfs'][0] }}:/var/nfs/shared"
+        path: /clientshare
+        fstype: nfs
+        opts: defaults
+        state: mounted

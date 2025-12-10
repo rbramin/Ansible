@@ -1,0 +1,37 @@
+---
+- name: Install PHPMyAdmin on DB server
+  hosts: prdx-db101
+  become: yes
+
+  tasks:
+
+    - name: Install EPEL repository
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Install PHPMyAdmin and PHP packages
+      yum:
+        name:
+          - httpd
+          - php
+          - php-cli
+          - php-mysqlnd
+          - php-pdo
+          - php-gd
+          - php-mbstring
+          - php-xml
+          - phpmyadmin
+        state: present
+
+    - name: Allow access to phpMyAdmin from any client
+      replace:
+        path: /etc/httpd/conf.d/phpMyAdmin.conf
+        regexp: 'Require local'
+        replace: 'Require all granted'
+
+    - name: Ensure Apache is running
+      systemd:
+        name: httpd
+        state: restarted
+        enabled: yes

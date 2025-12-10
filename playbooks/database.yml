@@ -2,5 +2,27 @@
 - name: Configure MariaDB Server
   hosts: prdx-db101
   become: yes
-  roles:
-    - database
+
+  tasks:
+    - name: Install MariaDB Server
+      yum:
+        name:
+          - mariadb-server
+          - mariadb
+        state: present
+
+    - name: Enable and start MariaDB
+      systemd:
+        name: mariadb
+        enabled: yes
+        state: started
+
+    - name: Install pip for MySQL-python
+      yum:
+        name: python3-PyMySQL
+        state: present
+
+    - name: Create Sample Database
+      mysql_db:
+        name: sampledb
+        state: present
